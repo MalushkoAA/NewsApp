@@ -15,5 +15,5 @@ interface NewsDAO {
     fun getItem(url: String): LiveData<NewsItemDbModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNewsList(newsList: List<NewsItemDbModel>)
+    fun insertNewsList(newsList: List<NewsItemDbModel>)
 }
