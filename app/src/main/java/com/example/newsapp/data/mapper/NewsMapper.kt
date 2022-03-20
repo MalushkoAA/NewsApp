@@ -7,7 +7,6 @@ import com.example.newsapp.domain.entity.NewsItem
 class NewsMapper {
 
     fun mapDtoToDbModel(dto:NewsItemDto)=NewsItemDbModel(
-        content=dto.content,
         description=dto.description,
         publishedAt=dto.publishedAt,
         title=dto.title,
@@ -16,7 +15,6 @@ class NewsMapper {
     )
 
     fun mapDbModelToEntity(dbModel: NewsItemDbModel)=NewsItem(
-        content=dbModel.content,
         description=dbModel.description,
         publishedAt=dbModel.publishedAt,
         title=dbModel.title,

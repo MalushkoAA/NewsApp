@@ -9,5 +9,5 @@ interface NewsRepo {
 
     fun getNewsItem( url:String): LiveData<NewsItem>
 
-    fun loadData()
+    suspend fun loadData()
 }

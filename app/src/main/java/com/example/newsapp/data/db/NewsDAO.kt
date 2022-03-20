@@ -8,12 +8,12 @@ import androidx.room.Query
 
 @Dao
 interface NewsDAO {
-    @Query("SELECT * FROM newsitemdbmodel ORDER BY publishedAt DESC")
+    @Query("SELECT * FROM news_list ORDER BY publishedAt DESC")
     fun getNewsList(): LiveData<List<NewsItemDbModel>>
 
-    @Query("SELECT * FROM newsitemdbmodel WHERE url == :url LIMIT 1")
+    @Query("SELECT * FROM news_list WHERE url == :url LIMIT 1")
     fun getItem(url: String): LiveData<NewsItemDbModel>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNewsList(newsList: List<NewsItemDbModel>)
+    suspend fun insertNewsList(newsList: List<NewsItemDbModel>)
 }

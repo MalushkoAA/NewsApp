@@ -5,5 +5,5 @@ import com.example.newsapp.domain.repo.NewsRepo
 class LoadDataUseCase(
     private val newsRepo: NewsRepo
 ) {
-    fun loadData() = newsRepo.loadData()
+    suspend operator fun invoke() = newsRepo.loadData()
 }
