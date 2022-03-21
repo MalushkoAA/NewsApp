@@ -1,7 +1,10 @@
 package com.example.newsapp.data.repo
 
 import android.app.Application
-import android.util.Log
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.example.newsapp.data.db.NewsDatabase
@@ -9,6 +12,7 @@ import com.example.newsapp.data.mapper.NewsMapper
 import com.example.newsapp.data.network.ApiFactory
 import com.example.newsapp.domain.entity.NewsItem
 import com.example.newsapp.domain.repo.NewsRepo
+
 
 class NewsRepoImpl(
     private val application: Application
@@ -40,5 +44,10 @@ class NewsRepoImpl(
             newsDao.insertNewsList(dbModelList)
         } catch (e: Exception) {
         }
+    }
+
+    override fun openNewsInSource(context: Context, url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(context, browserIntent, null)
     }
 }

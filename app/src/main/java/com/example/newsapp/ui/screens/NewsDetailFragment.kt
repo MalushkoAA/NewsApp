@@ -1,12 +1,14 @@
 package com.example.newsapp.ui.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentNewsDetailBinding
 import com.example.newsapp.ui.viewmodels.NewsViewModel
 
@@ -17,7 +19,6 @@ private lateinit var viewModel: NewsViewModel
     private var _binding: FragmentNewsDetailBinding? = null
     private val binding: FragmentNewsDetailBinding
         get() = _binding ?: throw RuntimeException("FragmentNewsDetailBinding == null")
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +37,14 @@ private lateinit var viewModel: NewsViewModel
             with(binding){
                 Glide.with(ivDetail.context)
                     .load(it.urlToImage)
+                    .apply(
+                        RequestOptions()
+                        .placeholder(R.drawable.loading_animation)
+                        .error(R.drawable.ic_broken_image))
                     .into(ivDetail)
                 tvTitleDetail.text=it.title
                 tvDescriptionDetail.text=it.description
+                btnOpenInSource.setOnClickListener { viewModel.openNews(requireContext(),url) }
             }
         }
     }
@@ -46,7 +52,6 @@ private lateinit var viewModel: NewsViewModel
     private fun getUrl(): String {
         return requireArguments().getString(EXTRA_FROM_URL, EMPTY_SYMBOL)
     }
-
 
     companion object {
 
