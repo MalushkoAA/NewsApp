@@ -9,15 +9,15 @@ import com.example.newsapp.domain.usecases.GetNewsItemsListUseCase
 import com.example.newsapp.domain.usecases.LoadDataUseCase
 import kotlinx.coroutines.launch
 
-class NewsOverviewViewModel(application: Application) : AndroidViewModel(application) {
+class NewsViewModel(application: Application) : AndroidViewModel(application) {
     private val repo = NewsRepoImpl(application)
     private val getNewsItemsListUseCase = GetNewsItemsListUseCase(repo)
-    private val getNewsItemUseCase = GetNewsItemUseCase(repo)
     private val loadDataUseCase = LoadDataUseCase(repo)
+    private val getNewsItemUseCase = GetNewsItemUseCase(repo)
+
+    fun getNewsDetail(url:String)= getNewsItemUseCase(url)
 
     val newsItemsList= getNewsItemsListUseCase()
-
-    fun getNewsDetail(url:String)=getNewsItemUseCase(url)
 
     init {
         viewModelScope.launch {

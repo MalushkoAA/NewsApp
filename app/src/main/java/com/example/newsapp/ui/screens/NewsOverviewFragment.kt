@@ -6,15 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentNewsOverviewBinding
 import com.example.newsapp.domain.entity.NewsItem
 import com.example.newsapp.ui.adapters.NewsAdapter
-import com.example.newsapp.ui.viewmodels.NewsOverviewViewModel
-import kotlinx.coroutines.NonDisposableHandle.parent
+import com.example.newsapp.ui.viewmodels.NewsViewModel
+
 
 class NewsOverviewFragment : Fragment() {
 
-    private lateinit var viewModel: NewsOverviewViewModel
+    private lateinit var viewModel: NewsViewModel
 
     private var _binding: FragmentNewsOverviewBinding?=null
     private val binding:FragmentNewsOverviewBinding
@@ -35,14 +36,22 @@ class NewsOverviewFragment : Fragment() {
         val adapter = NewsAdapter(context)
         adapter.onNewsClickListener=object :NewsAdapter.OnNewsClickListener{
             override fun onNewsClick(newsDetail: NewsItem) {
-                TODO("Not yet implemented")
+                launchDetailFragment(newsDetail.url)
             }
         }
         binding.rvNewsList.adapter=adapter
-        viewModel=ViewModelProvider(this)[NewsOverviewViewModel::class.java]
+        viewModel=ViewModelProvider(this)[NewsViewModel::class.java]
         viewModel.newsItemsList.observe(viewLifecycleOwner){
             adapter.submitList(it)
         }
-
     }
+
+    private fun launchDetailFragment(url:String){
+        requireActivity().supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.main_container,NewsDetailFragment.newInstance(url))
+            .addToBackStack(null)
+            .commit()
+    }
+
 }
