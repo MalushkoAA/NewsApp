@@ -12,7 +12,7 @@
 
 Стэк приложения:
 - Single activity
-- Принцип clean architecture (без DI)
+- Принцип clean architecture
 - MVVM
 - Coroutines
 - Retrofit2
