@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.example.newsapp.R
 import com.example.newsapp.databinding.NewsItemBinding
 import com.example.newsapp.domain.entity.NewsItem
 
@@ -31,6 +32,10 @@ class NewsAdapter(
             with(news) {
                 Glide.with(ivOverview.context)
                     .load(urlToImage)
+                    .apply(
+                        RequestOptions()
+                            .placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.ic_broken_image))
                     .into(ivOverview)
                 tvTitleOverview.text = title
                 root.setOnClickListener {
