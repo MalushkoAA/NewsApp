@@ -7,21 +7,22 @@ import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
+import com.example.newsapp.data.db.NewsDAO
 import com.example.newsapp.data.db.NewsDatabase
 import com.example.newsapp.data.mapper.NewsMapper
 import com.example.newsapp.data.network.ApiFactory
+import com.example.newsapp.data.network.ApiService
 import com.example.newsapp.domain.entity.NewsItem
 import com.example.newsapp.domain.repo.NewsRepo
+import javax.inject.Inject
 
 
-class NewsRepoImpl(
+class NewsRepoImpl @Inject constructor(
+    private val newsDao:NewsDAO,
+    private val apiService:ApiService,
+    private val mapper:NewsMapper,
     private val application: Application
 ) : NewsRepo {
-
-    private val newsDao = NewsDatabase.getDatabase(application).newsDao()
-    private val apiService = ApiFactory.apiService
-    private val mapper = NewsMapper()
-
 
     override fun getNewsItemsList(): LiveData<List<NewsItem>> {
         return Transformations.map(newsDao.getNewsList()) {

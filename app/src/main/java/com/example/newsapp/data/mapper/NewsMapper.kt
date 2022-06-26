@@ -3,8 +3,9 @@ package com.example.newsapp.data.mapper
 import com.example.newsapp.data.db.NewsItemDbModel
 import com.example.newsapp.data.network.models.NewsItemDto
 import com.example.newsapp.domain.entity.NewsItem
+import javax.inject.Inject
 
-class NewsMapper {
+class NewsMapper @Inject constructor(){
 
     fun mapDtoToDbModel(dto:NewsItemDto)=NewsItemDbModel(
         description=dto.description,
